@@ -6,7 +6,7 @@
 
 class GamePlayScene : public BaseScene
 {
-public:
+public: 
 	// 初期化
 	void Initialize() override;
 
