@@ -40,7 +40,7 @@ public:
 	// scale
 	const Vector3& GetSize() const { return transform.scale; }
 	void SetSize(const Vector3& scale) { this->transform.scale = scale; }
-	
+
 	// model
 	void SetModel(const std::string& filePath);
 

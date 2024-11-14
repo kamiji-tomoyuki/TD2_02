@@ -141,12 +141,6 @@
     <ClCompile Include="gameEngine\math\CalculateMath.cpp">
       <Filter>ソース ファイル\gameEngine\math</Filter>
     </ClCompile>
-    <ClCompile Include="gameEngine\math\Matrix4x4.cpp">
-      <Filter>ソース ファイル\gameEngine\math</Filter>
-    </ClCompile>
-    <ClCompile Include="gameEngine\math\Vector3.cpp">
-      <Filter>ソース ファイル\gameEngine\math</Filter>
-    </ClCompile>
     <ClCompile Include="gameEngine\3d\Camera.cpp">
       <Filter>ソース ファイル\gameEngine\3d</Filter>
     </ClCompile>
@@ -182,6 +176,27 @@
     </ClCompile>
     <ClCompile Include="scene\base\SceneFactory.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="gameEngine\math\impl\Matrix4x4.cpp">
+      <Filter>ソース ファイル\gameEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="gameEngine\math\impl\Vector3.cpp">
+      <Filter>ソース ファイル\gameEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="gameEngine\math\impl\Color.cpp">
+      <Filter>ソース ファイル\gameEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="gameEngine\math\impl\Rect2.cpp">
+      <Filter>ソース ファイル\gameEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="gameEngine\math\impl\Vector2.cpp">
+      <Filter>ソース ファイル\gameEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="gameEngine\math\impl\Vector3Fn.cpp">
+      <Filter>ソース ファイル\gameEngine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="gameEngine\math\impl\Vector4.cpp">
+      <Filter>ソース ファイル\gameEngine\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

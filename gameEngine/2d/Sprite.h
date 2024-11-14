@@ -18,7 +18,7 @@ class Sprite
 {
 public://メンバ関数
 	//初期化
-	void Initialize(std::string textureFilePath, 
+	void Initialize(std::string textureFilePath,
 		Vector2 position, Vector4 color = { (1) , (1), (1), (1) }, Vector2 anchorpoint = {0.0f,0.0f});
 
 	//更新処理
@@ -133,7 +133,7 @@ private:
 	Vector2 position = { 0.0f,0.0f };
 	float rotation = 0.0f;
 	Vector2 size = { 640.0f,360.0f };
-	
+
 	// --- texture ---
 	Microsoft::WRL::ComPtr<ID3D12Resource> textureResource;
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};

@@ -1,174 +1,143 @@
+// Copyright © 2024 Souto-Naitou. All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 #pragma once
 
 /// <summary>
-/// 2次元ベクトル
+/// 2th Dimension Vector
 /// </summary>
-#pragma once
-#include <cmath> // sqrt関数を使用するため
+class Vector2 final{
+public:
+    float x;
+    float y;
 
-/// <summary>
-/// 2次元ベクトル
-/// </summary>
-struct Vector2 final {
-	float x;
-	float y;
+    inline Vector2() : x(), y() {};
 
-	// コンストラクタ
-	Vector2(float _x = 0.0f, float _y = 0.0f) : x(_x), y(_y) {}
+    inline Vector2(const unsigned int _x, const unsigned int& _y)
+    {
+        x = static_cast<float>(_x);
+        y = static_cast<float>(_y);
+        return;
+    }
 
-	// 符号反転
-	Vector2 operator-() const { return Vector2(-x, -y); }
+    inline Vector2(const int& _x, const int& _y)
+    {
+        x = static_cast<float>(_x);
+        y = static_cast<float>(_y);
+        return;
+    }
 
-	// 加算
-	Vector2 operator+(const Vector2& obj) const { return Vector2(x + obj.x, y + obj.y); }
-	// 減算
-	Vector2 operator-(const Vector2& obj) const { return Vector2(x - obj.x, y - obj.y); }
-	// 乗算
-	Vector2 operator*(const Vector2& obj) const { return Vector2(x * obj.x, y * obj.y); }
-	// 乗算(スカラー倍)(float型)
-	Vector2 operator*(const float& scalar) const { return Vector2(x * scalar, y * scalar); }
-	// 乗算(スカラー倍)(int型)
-	Vector2 operator*(const int& scalar) const { return Vector2(x * scalar, y * scalar); }
-	// 除算
-	Vector2 operator/(const Vector2& obj) const { return Vector2(x / obj.x, y / obj.y); }
-	// 除算(スカラー)(float型)
-	Vector2 operator/(const float& scalar) const { return Vector2(x / scalar, y / scalar); }
-	// 除算(スカラー)(int型)
-	Vector2 operator/(const int& scalar) const { return Vector2(x / scalar, y / scalar); }
+    inline Vector2(const float& _x, const float& _y)
+    {
+        x = _x;
+        y = _y;
+        return;
+    }
 
-	// スカラー引き算
-	Vector2 operator-(const float& scalar) const { return Vector2(x - scalar, y - scalar); }
-	// スカラー引き算 (int型)
-	Vector2 operator-(const int& scalar) const { return Vector2(x - scalar, y - scalar); }
+    inline Vector2(const float& _x)
+    {
+        x = _x;
+        y = 0.0f;
+        return;
+    }
 
-	// フレンド関数: スカラー * ベクトル
-	friend Vector2 operator*(const float& scalar, const Vector2& vec) { return vec * scalar; }
-	// フレンド関数: スカラー / ベクトル
-	friend Vector2 operator/(const float& scalar, const Vector2& vec) { return Vector2(scalar / vec.x, scalar / vec.y); }
-	// フレンド関数: スカラー * ベクトル (int型)
-	friend Vector2 operator*(const int& scalar, const Vector2& vec) { return vec * scalar; }
-	// フレンド関数: スカラー / ベクトル (int型)
-	friend Vector2 operator/(const int& scalar, const Vector2& vec) { return Vector2(scalar / vec.x, scalar / vec.y); }
+    /// ===========
+    /// calcuration
+    /// ===========
 
-	// Vector2 の == 演算子
-	bool operator==(const Vector2& other) const { return x == other.x && y == other.y; }
+    /// <summary>
+    /// 内積
+    /// </summary>
+    /// <param name="_v">ベクトル</param>
+    /// <returns>内積</returns>
+    float       Dot(const Vector2& _v)                          const;
 
-	// +=
-	Vector2& operator+=(const Vector2& other) {
-		x += other.x;
-		y += other.y;
-		return *this;
-	}
-	// -=
-	Vector2& operator-=(const Vector2& other) {
-		x -= other.x;
-		y -= other.y;
-		return *this;
-	}
-	// *=
-	Vector2& operator*=(const Vector2& other) {
-		x *= other.x;
-		y *= other.y;
-		return *this;
-	}
-	// /=
-	Vector2& operator/=(const Vector2& other) {
-		x /= other.x;
-		y /= other.y;
-		return *this;
-	}
+    /// <summary>
+    /// 外積
+    /// </summary>
+    /// <param name="_v">ベクトル</param>
+    /// <returns>外積</returns>
+    float       Cross(const Vector2& _v)                        const;
 
-	// スカラーに対する演算
-	// += スカラー
-	Vector2& operator+=(const float& s) {
-		x += s;
-		y += s;
-		return *this;
-	}
-	// -= スカラー
-	Vector2& operator-=(const float& s) {
-		x -= s;
-		y -= s;
-		return *this;
-	}
-	// *= スカラー
-	Vector2& operator*=(const float& s) {
-		x *= s;
-		y *= s;
-		return *this;
-	}
-	// /= スカラー
-	Vector2& operator/=(const float& s) {
-		x /= s;
-		y /= s;
-		return *this;
-	}
+    /// <summary>
+    /// 原点からの距離を求める
+    /// </summary>
+    /// <returns>距離</returns>
+    float       Length()                                        const;
 
-	// ベクトルの長さを計算
-	float Length() const { return std::sqrt(x * x + y * y); }
+    /// <summary>
+    /// Length関数の平方根なし
+    /// </summary>
+    /// <returns></returns>
+    float       LengthWithoutRoot()                             const;
 
-	// ベクトルを正規化（単位ベクトルにする）
-	Vector2 Normalize() const {
-		float len = Length();
-		// 長さが0の場合は正規化できないので、ゼロベクトルを返す
-		if (len == 0.0f) {
-			return Vector2(0.0f, 0.0f);
-		}
-		return Vector2(x / len, y / len);
-	}
+    /// <summary>
+    /// 垂直ベクトルを返す
+    /// </summary>
+    /// <returns></returns>
+    Vector2     Perpendicular()                                 const;
+
+    /// <summary>
+    /// 正規化済みの値を返す
+    /// </summary>
+    /// <returns></returns>
+    Vector2     Normalize()                                     const;
+
+    /// <summary>
+    /// thisから引数のベクトルまでの距離
+    /// </summary>
+    /// <param name="_destination">行き先</param>
+    /// <returns>距離</returns>
+    float       Distance(const Vector2& _destination)           const;
+    float       Theta(const Vector2& _origin = { 0.0f, 0.0f })  const;
+    Vector2     Rotated(float _theta)                           const;
+
+    /// <summary>
+    /// 軸aに投影した値を返す
+    /// </summary>
+    /// <param name="_a">軸</param>
+    /// <returns></returns>
+    float       Projection(const Vector2& _a)                   const;
+
+    /// <summary>
+    /// 線形補間
+    /// </summary>
+    /// <param name="_begin">初期値</param>
+    /// <param name="_end">終了値</param>
+    /// <param name="_t">0.0~1.0</param>
+    void        Lerp(const Vector2& _begin, const Vector2& _end, float _t);
+
+    /// ==========
+    /// Minus sign
+    /// ==========
+
+    Vector2     operator-() const;
+
+    /// =====
+    /// float
+    /// =====
+
+    Vector2     operator+(float) = delete;
+    Vector2     operator-(float) = delete;
+    Vector2     operator*(float _f) const;
+    Vector2     operator/(float _f) const;
+    Vector2&    operator+=(float _f) = delete;
+    Vector2&    operator-=(float _f) = delete;
+    Vector2&    operator*=(float _f);
+    Vector2&    operator/=(float _f);
+
+    /// =======
+    /// Vector2
+    /// =======
+
+    Vector2     operator+(const Vector2& _v) const;
+    Vector2     operator-(const Vector2& _v) const;
+    Vector2     operator*(const Vector2& _v) const;
+
+    Vector2&    operator+=(const Vector2& _v);
+    Vector2&    operator-=(const Vector2& _v);
+    Vector2&    operator*=(const Vector2& _v);
 };
 
-struct Vector2Int final {
-	int x;
-	int y;
-
-	// 符号反転
-	Vector2Int operator-() const { return Vector2Int(-x, -y); }
-
-	// 加算
-	Vector2Int operator+(const Vector2Int& obj) const { return Vector2Int(x + obj.x, y + obj.y); };
-	// 減算
-	Vector2Int operator-(const Vector2Int& obj) const { return Vector2Int(x - obj.x, y - obj.y); };
-	// 乗算
-	Vector2Int operator*(const Vector2Int& obj) const { return Vector2Int(x * obj.x, y * obj.y); };
-	// 乗算(スカラー倍)(int型)
-	Vector2Int operator*(const int& scalar) const { return Vector2Int(x * scalar, y * scalar); };
-	// 除算
-	Vector2Int operator/(const Vector2Int& obj) const { return Vector2Int(x / obj.x, y / obj.y); };
-	// 除算(スカラー)(int型)
-	Vector2Int operator/(const int& scalar) const { return Vector2Int(x / scalar, y / scalar); };
-
-	friend Vector2Int operator*(const int& scalar, const Vector2Int& vec) { return vec * scalar; }
-	friend Vector2Int operator/(const int& scalar, const Vector2Int& vec) { return vec / scalar; }
-
-	// Vector2Int の == 演算子
-	bool operator==(const Vector2Int& other) const { return x == other.x && y == other.y; }
-
-	// +=
-	Vector2Int& operator+=(const Vector2Int& other) {
-		x += other.x;
-		y += other.y;
-
-		return *this;
-	};
-	// -=
-	Vector2Int& operator-=(const Vector2Int& other) {
-		x -= other.x;
-		y -= other.y;
-
-		return *this;
-	};
-	// *=
-	Vector2Int& operator*=(const Vector2Int& other) {
-		x *= other.x;
-		y *= other.y;
-
-		return *this;
-	};
-	// /=
-	Vector2Int& operator/=(const Vector2Int& other) {
-		x /= other.x;
-		y /= other.y;
-		return *this;
-	};
-};
+Vector2 operator*(const float _f, const Vector2& _v);
+Vector2 operator/(const float _f, const Vector2& _v);
