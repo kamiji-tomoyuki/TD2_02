@@ -65,6 +65,7 @@ public:
     /// ===========
 
     float   Dot(const Vector3& _v)                  const;
+    Vector3 Cross(const Vector3& _v)                const;
     float   Length()                                const;
     float   LengthWithoutRoot()                     const;
     Vector3 Normalize()                             const;
