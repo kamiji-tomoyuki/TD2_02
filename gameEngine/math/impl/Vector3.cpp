@@ -56,6 +56,12 @@ void Vector3::Theta(float& _azimuth, float& _elevation, const Vector3& _origin) 
     return;
 }
 
+float Vector3::Projection(const Vector3& _a) const
+{
+    Vector3 axis = _a.Normalize();
+    return (*this).Dot(axis);
+}
+
 float Vector3::Distance(const Vector3& _destination) const
 {
     Vector3 distance = _destination - *this;
