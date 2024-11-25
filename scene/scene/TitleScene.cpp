@@ -28,7 +28,7 @@ void TitleScene::Finalize()
 	}
 	Audio::GetInstance()->SoundUnload(Audio::GetInstance()->GetXAudio2(), &soundData);
 }
-
+ 
 void TitleScene::Update()
 {
 	//カメラの更新
