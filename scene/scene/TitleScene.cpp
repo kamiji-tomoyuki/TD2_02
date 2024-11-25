@@ -31,7 +31,7 @@ void TitleScene::Finalize()
 
 void TitleScene::Update()
 {
-	//カメラの更新
+	//カメラの更新　
 	camera->Update();
 
 	for (uint32_t i = 0; i < 1; ++i) {
