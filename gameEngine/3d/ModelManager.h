@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include <memory>
+#include <queue>
 
 #include "Model.h"
 
@@ -34,6 +35,12 @@ public:
 	// モデルファイルの読み込み
 	void LoadModel(const std::string& filePath);
 
+    // アップロードモデルの追加
+    void InqueueUploadModel(Model* model) { uploadModels_.push(model); }
+
+    // モデルのアップロード
+	void UploadModel();
+
 	// モデルの検索
 	Model* FindModel(const std::string& filePath);
 
@@ -43,5 +50,8 @@ private:
 
 	// --- モデル共通部 ---
 	ModelCommon* modelCommon_ = nullptr;
+
+    std::queue<Model*> uploadModels_;
+
 };
 

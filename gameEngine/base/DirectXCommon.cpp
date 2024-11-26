@@ -52,7 +52,7 @@ void DirectXCommon::DviceInitialize()
     HRESULT hr;
 
     // --- デバッグレイヤーをオンに ---
-#ifdef _DEBUG 
+#ifdef _DEBUG
     // デバッグ
     Microsoft::WRL::ComPtr<ID3D12Debug1> debugController = nullptr;
     if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugController)))) {
@@ -154,7 +154,7 @@ void DirectXCommon::CommandInitialize()
     hr = device_->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, commandAllocator.Get(), nullptr, IID_PPV_ARGS(&commandList));
     assert(SUCCEEDED(hr));
 
-    Logger::Log("Complete create ID3D12GraphicsCommandList!!!\n"); // コマンドリスト生成完了のログ　
+    Logger::Log("Complete create ID3D12GraphicsCommandList!!!\n"); // コマンドリスト生成完了のログ
 
 }
 
@@ -339,6 +339,7 @@ void DirectXCommon::PostDraw()
     // --- グラフィックスコマンドをクローズ ---
     hr = commandList->Close();
     assert(SUCCEEDED(hr));
+    isClosedCommandList_ = true;
 
     // --- GPUコマンドの実行 ---
     ID3D12CommandList* commandLists[] = { commandList.Get() };
@@ -371,6 +372,7 @@ void DirectXCommon::PostDraw()
     // --- コマンドリストのリセット ---
     hr = commandList->Reset(commandAllocator.Get(), nullptr);
     assert(SUCCEEDED(hr));
+    isClosedCommandList_ = false;
 }
 
 Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> DirectXCommon::CreateDescriptorHeap(Microsoft::WRL::ComPtr<ID3D12Device> device, D3D12_DESCRIPTOR_HEAP_TYPE heapType, UINT numDescriptors, bool shaderVisible)
@@ -414,7 +416,7 @@ Microsoft::WRL::ComPtr<ID3D12Resource> DirectXCommon::CreateDepthStencilTextureR
 {
     // 生成するResourceの設定
     D3D12_RESOURCE_DESC resourceDesc{};
-    resourceDesc.Width = width;                                   // Textureの幅　
+    resourceDesc.Width = width;                                   // Textureの幅
     resourceDesc.Height = height;                                 // Textureの高さ
     resourceDesc.MipLevels = 1;                                   // mipMapの数
     resourceDesc.DepthOrArraySize = 1;                            // 奥行き or 配列Textureの配列数

@@ -2,6 +2,7 @@
 #include "ModelCommon.h"
 #include "TextureManager.h"
 #include "WinApp.h"
+#include <ModelManager.h>
 
 #include <fstream>
 #include <sstream>
@@ -13,29 +14,30 @@ void Model::Initialize(ModelCommon* modelCommon, const std::string& directorypat
 	// 引数で受け取ってメンバ変数に記録する
 	modelCommon_ = modelCommon;
 
+    directoryPath_ = directorypath;
+    filename_ = filename;
+
 	// --- オブジェクト読み込み ---
-	modelData_ = LoadObjFile(directorypath, filename);
+	auto pfunc_load = [&]()
+	{
+		modelData_ = LoadObjFile(directoryPath_, filename_);
+		ModelManager::GetInstance()->InqueueUploadModel(this);
+        std::string text = "Load " + filename_ + " Complete\n";
+        OutputDebugStringA(text.c_str());
+	};
 
-	// 頂点データの初期化
-	VertexResource();
-	// マテリアルの初期化
-	MaterialResource();
-
-	// --- .objの参照しているテクスチャファイル読み込み ---
-	TextureManager::GetInstance()->LoadTexture(modelData_.material.textureFilePath);
-	// 読み込んだテクスチャファイルの番号を取得
-	modelData_.material.textureIndex =
-		TextureManager::GetInstance()->GetTextureIndexByFilePath(modelData_.material.textureFilePath);
+	th_loadObj_ = std::thread(pfunc_load);
 }
 
 void Model::Draw()
 {
+	if (th_loadObj_.joinable()) return;
 	// --- vertexBufferViewの生成 ---
 	modelCommon_->GetDxCommon()->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferView);
 
-	// --- マテリアルCBufferの場所を設定 --- 
+	// --- マテリアルCBufferの場所を設定 ---
 	modelCommon_->GetDxCommon()->GetCommandList()->SetGraphicsRootConstantBufferView(0, materialResource->GetGPUVirtualAddress());
-	
+
 	// --- SRVのDescriptorTableを設定 ---
 	modelCommon_->GetDxCommon()->GetCommandList()->SetGraphicsRootDescriptorTable(2, TextureManager::GetInstance()->GetSrvHandleGPU(modelData_.material.textureFilePath));
 
@@ -70,6 +72,22 @@ void Model::MaterialResource()
 	materialData->color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	materialData->enableLighting = true;
 	materialData->uvTransform = MakeIdentity4x4();
+}
+
+void Model::ModelUpload()
+{
+	th_loadObj_.join();
+
+	// 頂点データの初期化
+	VertexResource();
+	// マテリアルの初期化
+	MaterialResource();
+
+	// --- .objの参照しているテクスチャファイル読み込み ---
+	TextureManager::GetInstance()->LoadTexture(modelData_.material.textureFilePath);
+	// 読み込んだテクスチャファイルの番号を取得
+	modelData_.material.textureIndex =
+		TextureManager::GetInstance()->GetTextureIndexByFilePath(modelData_.material.textureFilePath);
 }
 
 Model::MaterialData Model::LoadMaterialTemplateFile(const std::string& directoryPath, const std::string& filename)
