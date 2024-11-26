@@ -17,6 +17,8 @@ class ModelCommon;
 class Model
 {
 public:
+	~Model();
+
 	// 初期化
 	void Initialize(ModelCommon* modelCommon, const std::string& directorypath, const std::string& filename);
 
