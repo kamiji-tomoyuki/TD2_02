@@ -116,7 +116,6 @@ void Object3dCommon::CreateRootSignature()
 
 	// --- BlendStateの設定 ---
 	// 全ての色要素を書き込む
-	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
 	blendDesc.RenderTarget[0].BlendEnable = TRUE;
 	blendDesc.RenderTarget[0].LogicOpEnable = FALSE;
 	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
