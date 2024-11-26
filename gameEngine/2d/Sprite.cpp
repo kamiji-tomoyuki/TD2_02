@@ -68,6 +68,7 @@ void Sprite::Initialize(std::string textureFilePath,
 
 	// --- その他引数の適応 ---
 	SetPosition(position);
+	SetColor(color);
 	SetAnchorPoint(anchorpoint);
 
 }
@@ -115,7 +116,7 @@ void Sprite::Draw()
 	// --- indexBufferViewの生成 ---
 	spriteCommon->GetDxCommon()->GetCommandList()->IASetIndexBuffer(&indexBufferView);
 
-	// --- マテリアルCBufferの場所を設定 --- 
+	// --- マテリアルCBufferの場所を設定 ---
 	spriteCommon->GetDxCommon()->GetCommandList()->SetGraphicsRootConstantBufferView(0, materialResource->GetGPUVirtualAddress());
 
 	// --- 座標変換行列CBufferの場所を設定 ---
@@ -156,8 +157,7 @@ void Sprite::IndexDataWriting()
 
 void Sprite::MaterialDataWriting()
 {
-	materialData->color = { 1.0f, 1.0f, 1.0f, 1.0f };
-	materialData->enableLighting = false;
+	materialData->color = { 1.0f, 1.0f, 1.0f, 0.1f };
 	materialData->uvTransform = MakeIdentity4x4();
 }
 

@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <wrl.h>
+#include <thread>
+
 
 #include "../math/Vector2.h"
 #include "../math/Vector3.h"
@@ -15,11 +17,16 @@ class ModelCommon;
 class Model
 {
 public:
+	~Model();
+
 	// 初期化
 	void Initialize(ModelCommon* modelCommon, const std::string& directorypath, const std::string& filename);
 
 	// 描画処理
 	void Draw();
+
+	// モデルデータの読み込み
+	void ModelUpload();
 
 private:
 	// ===== 構造体 =====
@@ -106,8 +113,13 @@ private:
 	Microsoft::WRL::ComPtr<ID3D12Resource> materialResource;
 	// マテリアルリソースにデータを書き込むためのポインタ
 	Material* materialData = nullptr;
-	
+
 	// --- Transform ---
 	Transform transform;
+
+	// スレッドで使用するもの
+    std::string directoryPath_;
+    std::string filename_;
+	std::thread th_loadObj_;
 };
 

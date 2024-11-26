@@ -124,13 +124,21 @@ void SpriteCommon::CreateGraphicsPipelineState()
 	inputLayoutDesc.NumElements = _countof(inputElementDescs);
 
 	// --- Shaderをコンパイル ---
-	IDxcBlob* vertexShaderBlob = dxCommon_->CompileShader(L"./Resources/shaders/Object3d.VS.hlsl", L"vs_6_0");
+	IDxcBlob* vertexShaderBlob = dxCommon_->CompileShader(L"./Resources/shaders/Sprite.VS.hlsl", L"vs_6_0");
 	assert(vertexShaderBlob != nullptr);
-	IDxcBlob* pixelShaderBlob = dxCommon_->CompileShader(L"./Resources/shaders/Object3d.PS.hlsl", L"ps_6_0");
+	IDxcBlob* pixelShaderBlob = dxCommon_->CompileShader(L"./Resources/shaders/Sprite.PS.hlsl", L"ps_6_0");
 	assert(pixelShaderBlob != nullptr);
 
 	// --- BlendStateの設定 ---
 	D3D12_BLEND_DESC blendDesc{};
+	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	blendDesc.RenderTarget[0].LogicOpEnable = FALSE;
+	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
 	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
 
 	// --- RasterizerStateの設定 ---

@@ -51,6 +51,8 @@ public:
 	D3D12_CPU_DESCRIPTOR_HANDLE GetSRVCPUDescriptorHandle(uint32_t index);
 	D3D12_GPU_DESCRIPTOR_HANDLE GetSRVGPUDescriptorHandle(uint32_t index);
 
+    bool GetIsClosedCommandList() const { return isClosedCommandList_; }
+
 	// DepthStencilTextureResourceの生成
 	Microsoft::WRL::ComPtr<ID3D12Resource> CreateDepthStencilTextureResource(Microsoft::WRL::ComPtr<ID3D12Device> device, int32_t width, int32_t height);
 
@@ -95,7 +97,7 @@ private:
 private:
 	// DirectX12デバイス
 	Microsoft::WRL::ComPtr<ID3D12Device> device_;
-	
+
 	// WindowsAPI
 	WinApp* winApp_ = nullptr;
 
@@ -147,6 +149,8 @@ private:
 
 	// リソースバリア
 	D3D12_RESOURCE_BARRIER barrier{};
+
+    bool isClosedCommandList_ = false;
 
 };
 

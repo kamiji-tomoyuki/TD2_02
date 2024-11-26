@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 #include <cassert>
+#include <ModelManager.h>
 
 SceneManager* SceneManager::instance = nullptr;
 

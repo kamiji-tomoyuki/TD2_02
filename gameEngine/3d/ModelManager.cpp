@@ -26,16 +26,17 @@ void ModelManager::Initialize(DirectXCommon* dxCommon)
 
 void ModelManager::LoadModel(const std::string& filePath)
 {
-	// --- 読み込み済みモデルを検索 ---
-	if (models.contains(filePath)) {
-		// 読み込み済みなら早期return
-		return;
-	}
-
 	// --- ファイルパスからディレクトリとファイル名を抽出 ---
 	std::filesystem::path path(filePath);
 	std::string directory = "resources/models/" + path.parent_path().string();
 	std::string fileName = path.filename().string(); // ファイル名だけを抽出
+
+	// --- 読み込み済みモデルを検索 ---
+	if (models.contains(fileName)) {
+		// 読み込み済みなら早期return
+		return;
+	}
+
 
 	// --- ディレクトリが存在しない場合は "resources/models" をデフォルトに ---
 	if (directory.empty()) {
@@ -48,6 +49,16 @@ void ModelManager::LoadModel(const std::string& filePath)
 
 	// --- モデルをmapコンテナに格納する ---
 	models.insert(std::make_pair(fileName, std::move(model))); // 所有権を譲渡
+}
+
+void ModelManager::UploadModel()
+{
+    if (uploadModels_.empty()) {
+        return;
+    }
+
+	uploadModels_.front()->ModelUpload();
+    uploadModels_.pop();
 }
 
 Model* ModelManager::FindModel(const std::string& filePath)
