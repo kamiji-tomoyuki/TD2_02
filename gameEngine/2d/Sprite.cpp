@@ -68,6 +68,7 @@ void Sprite::Initialize(std::string textureFilePath,
 
 	// --- その他引数の適応 ---
 	SetPosition(position);
+	SetColor(color);
 	SetAnchorPoint(anchorpoint);
 
 }
@@ -156,7 +157,7 @@ void Sprite::IndexDataWriting()
 
 void Sprite::MaterialDataWriting()
 {
-	materialData->color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	materialData->color = { 1.0f, 1.0f, 1.0f, 0.1f };
 	materialData->enableLighting = false;
 	materialData->uvTransform = MakeIdentity4x4();
 }
