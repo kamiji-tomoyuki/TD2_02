@@ -4,6 +4,8 @@
 #include "WinApp.h"
 #include <ModelManager.h>
 
+#include <Helper/ImGuiDebugManager/DebugManager.h>
+
 #include <fstream>
 #include <sstream>
 
@@ -11,7 +13,7 @@
 
 Model::~Model()
 {
-    if (th_loadObj_.joinable()) th_loadObj_.detach(); 
+    if (th_loadObj_.joinable()) th_loadObj_.detach();
 }
 
 void Model::Initialize(ModelCommon* modelCommon, const std::string& directorypath, const std::string& filename)
@@ -28,7 +30,7 @@ void Model::Initialize(ModelCommon* modelCommon, const std::string& directorypat
         modelData_ = LoadObjFile(directoryPath_, filename_);
         ModelManager::GetInstance()->InqueueUploadModel(this);
         std::string text = "Load " + filename_ + " Complete\n";
-        OutputDebugStringA(text.c_str());
+        DebugManager::GetInstance()->PushLog(text);
     };
 
     th_loadObj_ = std::thread(pfunc_load);
@@ -69,7 +71,7 @@ void Model::VertexResource()
 void Model::MaterialResource()
 {
     // --- materialResourceの作成 ---
-    materialResource = modelCommon_->GetDxCommon()->CreateBufferResource(sizeof(Material));
+    materialResource = modelCommon_->GetDxCommon()->CreateBufferResource(sizeof(Material)*2);
 
     // --- materialDataに割り当てる ---
     materialResource->Map(0, nullptr, reinterpret_cast<void**>(&materialData));
