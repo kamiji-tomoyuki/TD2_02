@@ -127,6 +127,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="gameEngine\base\D3DResourceLeakChecker.cpp" />
     <ClCompile Include="gameEngine\base\DirectXCommon.cpp" />
     <ClCompile Include="gameEngine\base\Framework.cpp" />
+    <ClCompile Include="scene\base\SceneFactory.cpp" />
     <ClCompile Include="scene\scene\GamePlayScene.cpp" />
     <ClCompile Include="gameEngine\utility\Logger.cpp" />
     <ClCompile Include="gameEngine\utility\StringUtility.cpp" />
@@ -146,7 +147,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="scene\base\MyGame.cpp" />
     <ClCompile Include="scene\scene\TitleScene.cpp" />
     <ClCompile Include="scene\base\SceneManager.cpp" />
-    <ClCompile Include="scene\scene\SceneFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scene\base\AbstractSceneFactory.h" />
@@ -158,6 +158,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="gameEngine\base\D3DResourceLeakChecker.h" />
     <ClInclude Include="gameEngine\base\DirectXCommon.h" />
     <ClInclude Include="gameEngine\base\Framework.h" />
+    <ClInclude Include="scene\base\SceneFactory.h" />
     <ClInclude Include="scene\scene\GamePlayScene.h" />
     <ClInclude Include="gameEngine\utility\Logger.h" />
     <ClInclude Include="gameEngine\utility\StringUtility.h" />
@@ -180,7 +181,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="gameEngine\base\ImGuiManager.h" />
     <ClInclude Include="scene\scene\TitleScene.h" />
     <ClInclude Include="scene\base\SceneManager.h" />
-    <ClInclude Include="scene\scene\SceneFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
