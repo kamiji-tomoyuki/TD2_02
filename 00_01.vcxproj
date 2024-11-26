@@ -47,12 +47,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)..\generated\outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\generated\obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)imgui;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)imgui;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)ImGui\Build\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)..\generated\outputs\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\generated\obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)imgui;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)imgui;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)ImGui\Build\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -65,7 +67,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)gameEngine\2d;$(ProjectDir)gameEngine\3d;$(ProjectDir)gameEngine\audio;$(ProjectDir)gameEngine\base;$(ProjectDir)gameEngine\io;$(ProjectDir)scene\base;$(ProjectDir)gameEngine\utility;$(ProjectDir)gameEngine\math;$(ProjectDir)imgui;$(ProjectDir)scene\scene;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)gameEngine\2d;$(ProjectDir)gameEngine\3d;$(ProjectDir)gameEngine\audio;$(ProjectDir)gameEngine\base;$(ProjectDir)gameEngine\io;$(ProjectDir)scene\base;$(ProjectDir)gameEngine\utility;$(ProjectDir)gameEngine\math;$(ProjectDir)imgui;$(ProjectDir)scene\scene;$(ProjectDir)scene\Transition;$(ProjectDir)..\.Externals;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -77,6 +79,9 @@
       <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
 copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"</Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>ImGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -89,8 +94,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(ProjectDir)gameEngine\2d;$(ProjectDir)gameEngine\3d;$(ProjectDir)gameEngine\audio;$(ProjectDir)gameEngine\base;$(ProjectDir)gameEngine\io;$(ProjectDir)scene\base;$(ProjectDir)gameEngine\utility;$(ProjectDir)gameEngine\math;$(ProjectDir)imgui;$(ProjectDir)scene\scene;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)gameEngine\2d;$(ProjectDir)gameEngine\3d;$(ProjectDir)gameEngine\audio;$(ProjectDir)gameEngine\base;$(ProjectDir)gameEngine\io;$(ProjectDir)scene\base;$(ProjectDir)gameEngine\utility;$(ProjectDir)gameEngine\math;$(ProjectDir)imgui;$(ProjectDir)scene\scene;$(ProjectDir)scene\Transition;$(ProjectDir)..\.Externals;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -102,6 +107,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
 copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"</Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>ImGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="gameEngine\math\impl\Color.cpp" />
@@ -111,13 +119,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="gameEngine\math\impl\Vector3.cpp" />
     <ClCompile Include="gameEngine\math\impl\Vector3Fn.cpp" />
     <ClCompile Include="gameEngine\math\impl\Vector4.cpp" />
-    <ClCompile Include="imgui\imgui.cpp" />
-    <ClCompile Include="imgui\imgui_demo.cpp" />
-    <ClCompile Include="imgui\imgui_draw.cpp" />
-    <ClCompile Include="imgui\imgui_impl_dx12.cpp" />
-    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
-    <ClCompile Include="imgui\imgui_tables.cpp" />
-    <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="scene\base\BaseScene.cpp" />
     <ClCompile Include="gameEngine\3d\Camera.cpp" />
     <ClCompile Include="gameEngine\3d\CameraManager.cpp" />
@@ -148,14 +149,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="scene\scene\SceneFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="imgui\imconfig.h" />
-    <ClInclude Include="imgui\imgui.h" />
-    <ClInclude Include="imgui\imgui_impl_dx12.h" />
-    <ClInclude Include="imgui\imgui_impl_win32.h" />
-    <ClInclude Include="imgui\imgui_internal.h" />
-    <ClInclude Include="imgui\imstb_rectpack.h" />
-    <ClInclude Include="imgui\imstb_textedit.h" />
-    <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="scene\base\AbstractSceneFactory.h" />
     <ClInclude Include="scene\base\BaseScene.h" />
     <ClInclude Include="gameEngine\3d\Camera.h" />
@@ -193,9 +186,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ProjectReference Include="externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
       <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
     </ProjectReference>
-    <ProjectReference Include="imgui\imgui.vcxproj">
-      <Project>{94de6afd-0df7-4c1e-91ad-d6e8d128748a}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Object3d.hlsli">
@@ -212,9 +202,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="imgui\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

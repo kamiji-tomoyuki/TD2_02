@@ -1,6 +1,5 @@
 #pragma once
 #include <BaseScene.h>
-
 #include <AbstractSceneFactory.h>
 
 // シーン管理
@@ -29,7 +28,7 @@ public:
 	// 描画処理
 	void Draw();
 
-	// 次のシーンを予約	
+	// 次のシーンを予約
 	void ChangeScene(const std::string& sceneName);
 
 	// シーンファクトリーを設定

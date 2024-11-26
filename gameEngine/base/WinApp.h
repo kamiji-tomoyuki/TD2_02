@@ -27,8 +27,8 @@ public://メンバ関数
 
 public://定数
 	//クライアント領域のサイズ
-	static const int32_t kClientWidth = 1280;
-	static const int32_t kClientHeight = 720;
+	static const int32_t kClientWidth = 1600;
+	static const int32_t kClientHeight = 900;
 
 private:
 	//ウインドウクラスの設定

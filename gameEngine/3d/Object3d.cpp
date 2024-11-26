@@ -23,8 +23,8 @@ void Object3d::Initialize(const std::string& filePath)
 	DirectionalLightResource();
 
 	// --- Transform変数の作成 ---
-	transform = { {1.0f,1.0f,1.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
-	
+	transform = { {1.0f,1.0f,1.0f},{0.0f,3.14159265359f,0.0f},{0.0f,0.0f,0.0f} };
+
 	// --- cameraの設置 ---
 	this->camera = object3dCommon->GetDefaultCamera();
 

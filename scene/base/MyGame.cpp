@@ -8,13 +8,13 @@ void MyGame::Initialize()
 	Framework::Initialize();
 
 	// --- シーンの生成・初期化 ---
-	// シーンマネージャに最初のシーンをセット	
+	// シーンマネージャに最初のシーンをセット
 	sceneFactory_ = new SceneFactory();
 	SceneManager::GetInstance()->SetSceneFactory(sceneFactory_);
 
 	// 最初のシーンを設定
 	SceneManager::GetInstance()->ChangeScene("TITLE");
-	
+
 }
 
 void MyGame::Finalize()
@@ -23,7 +23,7 @@ void MyGame::Finalize()
 	D3DResourceLeakChecker leakCheck;
 
 	Framework::Finalize();	// 基底クラスの解放処理
-	
+
 }
 
 void MyGame::Update()
