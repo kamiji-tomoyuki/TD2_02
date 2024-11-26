@@ -150,7 +150,7 @@
     <ClCompile Include="scene\base\SceneManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="scene\base\SceneFactory.cpp">
+    <ClCompile Include="scene\scene\SceneFactory.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="gameEngine\math\impl\Matrix4x4.cpp">
@@ -269,7 +269,7 @@
     <ClInclude Include="scene\base\AbstractSceneFactory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="scene\base\SceneFactory.h">
+    <ClInclude Include="scene\scene\SceneFactory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
