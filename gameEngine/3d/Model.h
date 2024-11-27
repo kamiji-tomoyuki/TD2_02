@@ -28,6 +28,9 @@ public:
 	// モデルデータの読み込み
 	void ModelUpload();
 
+    // モデルデータの読み込み
+	void SetEnableLighting(bool _flag) { materialData->enableLighting = _flag; }
+
 private:
 	// ===== 構造体 =====
 	// --- 頂点データ ---
