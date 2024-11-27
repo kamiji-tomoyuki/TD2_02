@@ -142,10 +142,8 @@ private:
 
 	// --- アンカーポイント ---
 	Vector2 anchorPoint = { 0.0f,0.0f };
-	float left = 0.0f - anchorPoint.x;
-	float right = 1.0f - anchorPoint.x;
-	float top = 0.0f - anchorPoint.y;
-	float bottom = 1.0f - anchorPoint.y;
+
+	float left, top, right, bottom;
 
 	// --- フリップ ---
 	// 左右
