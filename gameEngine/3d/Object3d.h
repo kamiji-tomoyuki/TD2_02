@@ -6,6 +6,7 @@
 #include <wrl.h>
 
 #include "Camera.h"
+#include "Model.h"
 
 #include "Vector2.h"
 #include "Vector3.h"
@@ -13,7 +14,6 @@
 #include "Matrix4x4.h"
 
 class Object3dCommon;
-class Model;
 
 // 3Dオブジェクト
 class Object3d
@@ -46,6 +46,9 @@ public:
 
 	// camera
 	void SetCamera(Camera* camera) { this->camera = camera; }
+
+	// lighting
+	void SetEnableLighting(bool _flag) { model->SetEnableLighting(_flag); }
 
 private:
 	//Data書き込み

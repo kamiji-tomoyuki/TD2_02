@@ -71,7 +71,7 @@ void Model::VertexResource()
 void Model::MaterialResource()
 {
     // --- materialResourceの作成 ---
-    materialResource = modelCommon_->GetDxCommon()->CreateBufferResource(sizeof(Material)*2);
+    materialResource = modelCommon_->GetDxCommon()->CreateBufferResource(sizeof(Material));
 
     // --- materialDataに割り当てる ---
     materialResource->Map(0, nullptr, reinterpret_cast<void**>(&materialData));
