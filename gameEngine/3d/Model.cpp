@@ -87,6 +87,7 @@ void Model::ModelUpload()
 
     // 頂点データの初期化
     VertexResource();
+
     // マテリアルの初期化
     MaterialResource();
 
