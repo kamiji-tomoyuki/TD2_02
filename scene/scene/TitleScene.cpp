@@ -19,7 +19,7 @@ void TitleScene::Initialize()
 	sceneManager_ = SceneManager::GetInstance();
 }
 
-void TitleScene::Finalize()
+void TitleScene::Finalize() 
 {
 	// 各解放処理
 	delete camera;
