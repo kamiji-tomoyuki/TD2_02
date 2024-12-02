@@ -30,5 +30,5 @@ private: // メンバ変数
 	// 3Dオブジェクト
 	std::vector<Object3d*> object3ds;
 
-};
+}; 
 
